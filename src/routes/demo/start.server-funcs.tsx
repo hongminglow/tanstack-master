@@ -32,10 +32,18 @@ async function readTodos() {
   )
 }
 
+// ** Define server functions directly by defining its method(POST,GET,etc) and handler
+// ** Handler can be directly access to the server side resources like fs, db, etc.
 const getTodos = createServerFn({
   method: 'GET',
-}).handler(async () => await readTodos())
+  // ** Static server function will be executed on build time thn cached and only re-executed when invalidated
+  //   type: "static"
+})
+  // ** Middleware can be attached to server function to do pre-processing like authentication, logging, etc.
+  //   .middleware([authMiddleware])
+  .handler(async () => await readTodos())
 
+// ** There is validator for server funtion that will validate the input data beforehand
 const addTodo = createServerFn({ method: 'POST' })
   .inputValidator((d: string) => d)
   .handler(async ({ data }) => {
@@ -48,10 +56,22 @@ const addTodo = createServerFn({ method: 'POST' })
 export const Route = createFileRoute('/demo/start/server-funcs')({
   component: Home,
   loader: async () => await getTodos(),
+  // ** Showcase of verification before route loads
+  // ** loader executed when the url is matched but before the component is rendered
+  // ** beforeLoad will be executed even before "loader", suitable to do route redirect for authorization
+  //   loader: ({ params }) => {
+  //     if (Number(params.id) > 10) {
+  //       throw notFound()
+  //     }
+  //   },
+  // ** Showcase of pending component while route is loading, just like Suspense
+  //   pendingComponent: () => <div>Loading todos...</div>,
 })
 
 function Home() {
   const router = useRouter()
+  // ** We can access back the loader data returned in "loader"
+  // ** Can as well used Route.useParams() to get route params
   let todos = Route.useLoaderData()
 
   const [todo, setTodo] = useState('')
@@ -60,6 +80,8 @@ function Home() {
     todos = await addTodo({ data: todo })
     setTodo('')
     router.invalidate()
+    // ** can use router from useRouter hooks to navigate programmatically
+    // router.navigate({to: "/"})
   }, [addTodo, todo])
 
   return (

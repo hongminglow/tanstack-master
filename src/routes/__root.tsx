@@ -43,6 +43,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   shellComponent: RootDocument,
 })
 
+// ** Each file defined under routes folder is considered a route
+// ** For params routes, we use "$" prefix to define params, e.g. dashboard.$id.tsx
+// ** Routes started with "api" are considered API routes, e.g. api.get-user.tsx
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
