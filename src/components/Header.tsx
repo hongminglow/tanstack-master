@@ -138,6 +138,19 @@ export default function Header() {
             <span className="font-medium">Start - API Request</span>
           </Link>
 
+          <Link
+            to="/demo/pathless/123"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+          >
+            <ChevronRight size={20} />
+            <span className="font-medium">Pathless + $id Params</span>
+          </Link>
+
           <div className="flex flex-row justify-between">
             <Link
               to="/demo/start/ssr"

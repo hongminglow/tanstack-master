@@ -8,6 +8,8 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as IndexRouteImport } from './routes/index'
@@ -15,6 +17,7 @@ import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-qu
 import { Route as DemoMcpTodosRouteImport } from './routes/demo/mcp-todos'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
+import { Route as DemoPathlessGuardRouteImport } from './routes/demo/pathless._guard'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 import { Route as DemoApiTqTodosRouteImport } from './routes/demo/api.tq-todos'
@@ -24,6 +27,9 @@ import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.i
 import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
 import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
 import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ssr.data-only'
+import { Route as DemoPathlessGuardIdRouteImport } from './routes/demo/pathless._guard.$id'
+
+const DemoPathlessRouteImport = createFileRoute('/demo/pathless')()
 
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
@@ -33,6 +39,11 @@ const McpRoute = McpRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoPathlessRoute = DemoPathlessRouteImport.update({
+  id: '/demo/pathless',
+  path: '/demo/pathless',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
@@ -54,6 +65,10 @@ const DemoStartApiRequestRoute = DemoStartApiRequestRouteImport.update({
   id: '/demo/start/api-request',
   path: '/demo/start/api-request',
   getParentRoute: () => rootRouteImport,
+} as any)
+const DemoPathlessGuardRoute = DemoPathlessGuardRouteImport.update({
+  id: '/_guard',
+  getParentRoute: () => DemoPathlessRoute,
 } as any)
 const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
   id: '/demo/form/simple',
@@ -100,6 +115,11 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
   path: '/demo/start/ssr/data-only',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DemoPathlessGuardIdRoute = DemoPathlessGuardIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => DemoPathlessGuardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -111,8 +131,10 @@ export interface FileRoutesByFullPath {
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/demo/pathless': typeof DemoPathlessGuardRouteWithChildren
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/demo/pathless/$id': typeof DemoPathlessGuardIdRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -128,8 +150,10 @@ export interface FileRoutesByTo {
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/demo/pathless': typeof DemoPathlessGuardRouteWithChildren
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/demo/pathless/$id': typeof DemoPathlessGuardIdRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -146,8 +170,11 @@ export interface FileRoutesById {
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/demo/pathless': typeof DemoPathlessRouteWithChildren
+  '/demo/pathless/_guard': typeof DemoPathlessGuardRouteWithChildren
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/demo/pathless/_guard/$id': typeof DemoPathlessGuardIdRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -165,8 +192,10 @@ export interface FileRouteTypes {
     | '/demo/api/tq-todos'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/demo/pathless'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/demo/pathless/$id'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -182,8 +211,10 @@ export interface FileRouteTypes {
     | '/demo/api/tq-todos'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/demo/pathless'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/demo/pathless/$id'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -199,8 +230,11 @@ export interface FileRouteTypes {
     | '/demo/api/tq-todos'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/demo/pathless'
+    | '/demo/pathless/_guard'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/demo/pathless/_guard/$id'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -217,6 +251,7 @@ export interface RootRouteChildren {
   DemoApiTqTodosRoute: typeof DemoApiTqTodosRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
+  DemoPathlessRoute: typeof DemoPathlessRouteWithChildren
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
   DemoStartSsrDataOnlyRoute: typeof DemoStartSsrDataOnlyRoute
@@ -239,6 +274,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/pathless': {
+      id: '/demo/pathless'
+      path: '/demo/pathless'
+      fullPath: '/demo/pathless'
+      preLoaderRoute: typeof DemoPathlessRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/tanstack-query': {
@@ -268,6 +310,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/demo/start/api-request'
       preLoaderRoute: typeof DemoStartApiRequestRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/demo/pathless/_guard': {
+      id: '/demo/pathless/_guard'
+      path: '/demo/pathless'
+      fullPath: '/demo/pathless'
+      preLoaderRoute: typeof DemoPathlessGuardRouteImport
+      parentRoute: typeof DemoPathlessRoute
     }
     '/demo/form/simple': {
       id: '/demo/form/simple'
@@ -332,8 +381,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoStartSsrDataOnlyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/demo/pathless/_guard/$id': {
+      id: '/demo/pathless/_guard/$id'
+      path: '/$id'
+      fullPath: '/demo/pathless/$id'
+      preLoaderRoute: typeof DemoPathlessGuardIdRouteImport
+      parentRoute: typeof DemoPathlessGuardRoute
+    }
   }
 }
+
+interface DemoPathlessGuardRouteChildren {
+  DemoPathlessGuardIdRoute: typeof DemoPathlessGuardIdRoute
+}
+
+const DemoPathlessGuardRouteChildren: DemoPathlessGuardRouteChildren = {
+  DemoPathlessGuardIdRoute: DemoPathlessGuardIdRoute,
+}
+
+const DemoPathlessGuardRouteWithChildren =
+  DemoPathlessGuardRoute._addFileChildren(DemoPathlessGuardRouteChildren)
+
+interface DemoPathlessRouteChildren {
+  DemoPathlessGuardRoute: typeof DemoPathlessGuardRouteWithChildren
+}
+
+const DemoPathlessRouteChildren: DemoPathlessRouteChildren = {
+  DemoPathlessGuardRoute: DemoPathlessGuardRouteWithChildren,
+}
+
+const DemoPathlessRouteWithChildren = DemoPathlessRoute._addFileChildren(
+  DemoPathlessRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -345,6 +424,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoApiTqTodosRoute: DemoApiTqTodosRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,
+  DemoPathlessRoute: DemoPathlessRouteWithChildren,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
   DemoStartSsrDataOnlyRoute: DemoStartSsrDataOnlyRoute,
