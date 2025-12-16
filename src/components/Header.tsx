@@ -147,8 +147,8 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <ChevronRight size={20} />
-            <span className="font-medium">Pathless + $id Params</span>
+            <StickyNote size={20} />
+            <span className="font-medium">Search Params</span>
           </Link>
 
           <div className="flex flex-row justify-between">

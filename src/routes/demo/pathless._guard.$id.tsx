@@ -9,6 +9,7 @@ const SearchSchema = z.object({
   highlight: z.coerce.boolean().optional(),
 })
 
+// ** Route defined with "_" prefix are pathless routes, not reflected in the url
 export const Route = createFileRoute('/demo/pathless/_guard/$id')({
   // Validates + types Route.useParams()
   parseParams: (params) => ParamsSchema.parse(params),
@@ -62,6 +63,8 @@ function RouteComponent() {
       <div className="mt-4 flex flex-wrap gap-2">
         <Link
           to="/demo/pathless/$id"
+          // ** Preload props allows preloading the split chunk based on values (viewport/render)
+          preload="viewport"
           params={{ id: id + 1 }}
           search={{ highlight: search.highlight }}
           className="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-2 px-3 rounded-lg transition-colors"
