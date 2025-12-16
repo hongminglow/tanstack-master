@@ -1,7 +1,8 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
 
 // Toggle this boolean to see the guard redirect behavior.
-const ALLOW_GUARDED_DEMO = true
+const ALLOW_GUARDED_DEMO =
+  (import.meta.env.VITE_ALLOW_GUARDED_DEMO ?? 'true') === 'true'
 
 export const Route = createFileRoute('/demo/pathless/_guard')({
   beforeLoad: () => {

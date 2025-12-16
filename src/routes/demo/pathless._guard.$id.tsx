@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { z } from 'zod'
+import { RouteParamsPeek } from '@/components/RouteParamsPeek'
 
 const ParamsSchema = z.object({
   id: z.coerce.number().int().positive(),
@@ -80,12 +81,22 @@ function RouteComponent() {
         >
           Toggle highlight
         </Link>
+
+        <Link
+          to="/demo/pathless/order-{$orderId}-details"
+          params={{ orderId: id }}
+          className="bg-white/10 hover:bg-white/15 text-white font-semibold py-2 px-3 rounded-lg transition-colors"
+        >
+          Prefix+Suffix param demo
+        </Link>
       </div>
 
       <p className="mt-4 text-sm text-white/60">
         Try:{' '}
         <span className="font-mono">/demo/pathless/123?highlight=true</span>
       </p>
+
+      <RouteParamsPeek />
     </div>
   )
 }

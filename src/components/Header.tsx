@@ -139,7 +139,8 @@ export default function Header() {
           </Link>
 
           <Link
-            to="/demo/pathless/123"
+            to="/demo/pathless/$id"
+            params={{ id: 123 }}
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
             activeProps={{

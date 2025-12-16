@@ -27,6 +27,7 @@ import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.i
 import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
 import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
 import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ssr.data-only'
+import { Route as DemoPathlessGuardOrderChar123orderIdChar125DetailsRouteImport } from './routes/demo/pathless._guard.order-{$orderId}-details'
 import { Route as DemoPathlessGuardIdRouteImport } from './routes/demo/pathless._guard.$id'
 
 const DemoPathlessRouteImport = createFileRoute('/demo/pathless')()
@@ -115,6 +116,12 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
   path: '/demo/start/ssr/data-only',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DemoPathlessGuardOrderChar123orderIdChar125DetailsRoute =
+  DemoPathlessGuardOrderChar123orderIdChar125DetailsRouteImport.update({
+    id: '/order-{$orderId}-details',
+    path: '/order-{$orderId}-details',
+    getParentRoute: () => DemoPathlessGuardRoute,
+  } as any)
 const DemoPathlessGuardIdRoute = DemoPathlessGuardIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -135,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/demo/pathless/$id': typeof DemoPathlessGuardIdRoute
+  '/demo/pathless/order-{$orderId}-details': typeof DemoPathlessGuardOrderChar123orderIdChar125DetailsRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -154,6 +162,7 @@ export interface FileRoutesByTo {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/demo/pathless/$id': typeof DemoPathlessGuardIdRoute
+  '/demo/pathless/order-{$orderId}-details': typeof DemoPathlessGuardOrderChar123orderIdChar125DetailsRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -175,6 +184,7 @@ export interface FileRoutesById {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/demo/pathless/_guard/$id': typeof DemoPathlessGuardIdRoute
+  '/demo/pathless/_guard/order-{$orderId}-details': typeof DemoPathlessGuardOrderChar123orderIdChar125DetailsRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/demo/pathless/$id'
+    | '/demo/pathless/order-{$orderId}-details'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -215,6 +226,7 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/demo/pathless/$id'
+    | '/demo/pathless/order-{$orderId}-details'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -235,6 +247,7 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/demo/pathless/_guard/$id'
+    | '/demo/pathless/_guard/order-{$orderId}-details'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -381,6 +394,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoStartSsrDataOnlyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/demo/pathless/_guard/order-{$orderId}-details': {
+      id: '/demo/pathless/_guard/order-{$orderId}-details'
+      path: '/order-{$orderId}-details'
+      fullPath: '/demo/pathless/order-{$orderId}-details'
+      preLoaderRoute: typeof DemoPathlessGuardOrderChar123orderIdChar125DetailsRouteImport
+      parentRoute: typeof DemoPathlessGuardRoute
+    }
     '/demo/pathless/_guard/$id': {
       id: '/demo/pathless/_guard/$id'
       path: '/$id'
@@ -393,10 +413,13 @@ declare module '@tanstack/react-router' {
 
 interface DemoPathlessGuardRouteChildren {
   DemoPathlessGuardIdRoute: typeof DemoPathlessGuardIdRoute
+  DemoPathlessGuardOrderChar123orderIdChar125DetailsRoute: typeof DemoPathlessGuardOrderChar123orderIdChar125DetailsRoute
 }
 
 const DemoPathlessGuardRouteChildren: DemoPathlessGuardRouteChildren = {
   DemoPathlessGuardIdRoute: DemoPathlessGuardIdRoute,
+  DemoPathlessGuardOrderChar123orderIdChar125DetailsRoute:
+    DemoPathlessGuardOrderChar123orderIdChar125DetailsRoute,
 }
 
 const DemoPathlessGuardRouteWithChildren =
