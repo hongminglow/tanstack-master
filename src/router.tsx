@@ -11,7 +11,14 @@ export const getRouter = () => {
 
   const router = createRouter({
     routeTree,
-    context: { ...rqContext },
+    context: {
+      ...rqContext,
+      appName: 'TanStack Router Context Demo',
+      mode: import.meta.env.MODE,
+      featureFlags: {
+        routerContextDemo: true,
+      },
+    },
     defaultPreload: 'intent',
     Wrap: (props: { children: React.ReactNode }) => {
       return (

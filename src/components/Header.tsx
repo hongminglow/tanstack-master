@@ -139,6 +139,19 @@ export default function Header() {
           </Link>
 
           <Link
+            to="/demo/router-context"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+          >
+            <Network size={20} />
+            <span className="font-medium">Router Context (DI)</span>
+          </Link>
+
+          <Link
             to="/demo/pathless/$id"
             params={{ id: 123 }}
             onClick={() => setIsOpen(false)}
@@ -149,7 +162,7 @@ export default function Header() {
             }}
           >
             <StickyNote size={20} />
-            <span className="font-medium">Search Params</span>
+            <span className="font-medium">Route Params</span>
           </Link>
 
           <div className="flex flex-row justify-between">

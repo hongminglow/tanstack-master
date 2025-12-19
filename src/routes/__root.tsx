@@ -16,6 +16,11 @@ import type { QueryClient } from '@tanstack/react-query'
 
 interface MyRouterContext {
   queryClient: QueryClient
+  appName: string
+  mode: string
+  featureFlags: {
+    routerContextDemo: boolean
+  }
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
